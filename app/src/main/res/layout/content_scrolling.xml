@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/text_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".LocationList"
+    tools:showIn="@layout/activity_location_list">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/location1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/location_hint"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/location2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/location_hint"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/location3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/location_hint"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/location4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/location_hint"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/location5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/location_hint"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/location6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/location_hint"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/location7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/location_hint"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/location8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/location_hint"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/location9"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/location_hint"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/location10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/location_hint"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/location11"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/location_hint"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/location12"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/location_hint"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/location13"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/location_hint"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/location14"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/location_hint"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/location15"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/location_hint"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/location16"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/location_hint"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/location17"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/location_hint"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/location18"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/location_hint"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/location19"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/location_hint"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/location20"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/location_hint"
+            android:inputType="textPersonName" />
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

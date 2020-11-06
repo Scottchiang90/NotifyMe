@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">NotifyMe</string>
+    <string name="button_settings">Watchlist</string>
+    <string name="button_search">Search</string>
+    <string name="button_map">Map</string>
+    <string name="switch_notification">Raid Notifications</string>
+    <string name="text_view_default">Sorry, there are no Raids.</string>
+    <string name="location_names">location_names</string>
+    <string name="notification_state">notification_state</string>
+    <string name="shared_pref">Settings</string>
+    <string name="title_activity_location_list">My Gym Watchlist</string>
+    <string name="action_settings">Settings</string>
+    <string name="location_hint">Enter Gym Name</string>
+</resources>
