@@ -4,7 +4,6 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import com.android.volley.Request
-import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import org.json.JSONException
@@ -34,11 +33,7 @@ class AlarmReceiver : BroadcastReceiver() {
             Request.Method.GET, timed_url, null,
                 { response ->try {
                     val jsonArray = response.getJSONArray("raids")
-                    // get shared preference
-                    val sharedPref = context.getSharedPreferences(context.getString(R.string.shared_pref), Context.MODE_PRIVATE)
-                    //fetch the list
-                    val locations = sharedPref.getString(context.getString(R.string.location_names), "")
-                    notify(context, getMatchingRaids(jsonArray, locations, context))
+                    notify(context, getMatchingRaids(jsonArray, context))
                 } catch (e: JSONException) {
                     e.printStackTrace()
                 }

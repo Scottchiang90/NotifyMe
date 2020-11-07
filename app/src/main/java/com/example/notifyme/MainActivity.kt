@@ -9,12 +9,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
 import android.view.View
-import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Switch
 import android.widget.TextView
 import com.android.volley.Request
-import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import org.json.JSONArray
@@ -116,11 +114,7 @@ class MainActivity : AppCompatActivity() {
             Request.Method.GET, timed_url, null,
                 { response ->try {
                     val jsonArray = response.getJSONArray("raids")
-                    // get shared preference
-                    val sharedPref = this.getSharedPreferences(getString(R.string.shared_pref), Context.MODE_PRIVATE)
-                    //fetch the list
-                    val locations = sharedPref.getString(getString(R.string.location_names), "")
-                    textView.text = getMatchingRaids(jsonArray, locations, this)
+                    textView.text = getMatchingRaids(jsonArray, this)
                 } catch (e: JSONException) {
                     e.printStackTrace()
                     textView.text = "Unable to fetch from server."
@@ -135,27 +129,42 @@ class MainActivity : AppCompatActivity() {
     }
 }
 
-fun getMatchingRaids(jsonArray: JSONArray, locations: String?, context: Context): String {
+fun getLocationList(context: Context): MutableList<String> {
+    // get shared preference
+    val sharedPref = context.getSharedPreferences(context.getString(R.string.shared_pref), Context.MODE_PRIVATE)
+    //fetch the list
+    val locations = mutableListOf<String>()
+    for (x in 1..20) {
+        val location = sharedPref.getString("location$x", "")
+        if (location?.isNotBlank()!!) {
+            locations.add(location.toLowerCase(Locale.ROOT))
+        }
+    }
+    return locations
+}
+
+fun getMatchingRaids(jsonArray: JSONArray, context: Context): String {
     // split locations string
-    val locationList = locations!!.split(",")
+    val locationList = getLocationList(context)
 
     //generate results
-    var results = ""
+    val results = mutableListOf<String>()
     for (i in 0 until jsonArray.length()) {
         val raid = jsonArray.getJSONObject(i)
         val gymName = raid.getString("gym_name")
-        if (locationList.any{gymName.equals(it, true)}) {
-            //findViewById<Button>(R.id.button_search).apply { text = gymName }
+        if (gymName.toLowerCase(Locale.ROOT) in locationList) {
             val level = raid.getInt("level")
             if (level > 4) {
                 //val raid_spawn = timeToString(raid.getString("raid_spawn"))
                 val raid_start = timeToString(raid.getString("raid_start"))
                 //val raid_end = timeToString(raid.getString("raid_end"))
-                results = results.plus("$gymName[$level]: $raid_start\n\n")
+                val result = "$gymName[$level]: $raid_start"
+                if (result !in results) // remove repeats
+                    results.add(result)
             }
         }
     }
-    return if (results.isBlank()) context.getString(R.string.text_view_default) else results
+    return if (results.isEmpty()) context.getString(R.string.text_view_default) else results.joinToString(separator = "\n\n")
 }
 
 fun timeToString(stringTime: String): String {
