@@ -67,7 +67,7 @@ class MainActivity : AppCompatActivity() {
         alarmMgr?.setInexactRepeating(
             AlarmManager.RTC_WAKEUP,
             calendar.timeInMillis,
-            AlarmManager.INTERVAL_HOUR,
+            AlarmManager.INTERVAL_HALF_HOUR,
             alarmIntent
         )
     }

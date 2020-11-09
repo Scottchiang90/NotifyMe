@@ -45,7 +45,7 @@ class  NotificationUtils(base: Context) : ContextWrapper(base) {
         }
         val pendingIntent = PendingIntent.getActivity(this, 0, intent, 0)
         return NotificationCompat.Builder(applicationContext, MYCHANNEL_ID)
-                .setContentTitle("Raid Alert")
+                .setContentTitle("Upcoming Raid Alert!")
                 .setContentText(message)
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentIntent(pendingIntent)

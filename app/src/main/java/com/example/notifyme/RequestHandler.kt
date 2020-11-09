@@ -108,24 +108,41 @@ class RequestHandler(val context: Context, private var isNotify: Boolean): Respo
             val gymName = raid.getString("gym_name")
             if (gymName.toLowerCase(Locale.ROOT) in locationList) {
                 val level = raid.getInt("level")
-                if (level > 4) {
-                    //val raid_spawn = timeToString(raid.getString("raid_spawn"))
-                    val raid_start = timeToString(raid.getString("raid_start"))
-                    //val raid_end = timeToString(raid.getString("raid_end"))
-                    val result = "$gymName[$level]: $raid_start"
-                    if (result !in results) // remove repeats
-                        results.add(result)
-                }
+                //val raid_spawn = timeToString(raid.getString("raid_spawn"))
+                val raidStart = raid.getString("raid_start")
+                //val raid_end = timeToString(raid.getString("raid_end"))
+                val result = parseMatchingRaidResult(gymName, level, raidStart)
+                if (result.isNotEmpty() && result !in results) // remove repeats
+                    results.add(result)
             }
         }
         return if (results.isEmpty()) context.getString(R.string.text_view_default) else results.joinToString(separator = "\n\n")
     }
 
-    private fun timeToString(stringTime: String): String {
+    private fun parseMatchingRaidResult(gymName: String, level: Int, raidStart: String): String{
+        var result = ""
+        if (level > 4) {
+            val raidStartDate = Date(raidStart.toLong() * 1000)
+            result = if (isNotify && Date().before(raidStartDate)){ // only notify upcoming raids
+                "$gymName[$level]: ${minsToStart(raidStartDate)} mins"
+            } else { // display all raids
+                "$gymName[$level]: ${timeToString(raidStartDate)}"
+            }
+        }
+        return result
+    }
+
+    private fun minsToStart(raidStartDate: Date): String {
+        val diff: Long = raidStartDate.time - Date().time
+        val seconds = diff / 1000
+        return (seconds / 60).toInt().toString()
+    }
+
+    private fun timeToString(raidStartDate: Date): String {
         val df = DateFormat.getTimeInstance(DateFormat.SHORT, Locale.ENGLISH)
         val tz = TimeZone.getTimeZone("Asia/Singapore")
         df.calendar.timeZone = tz
-        return df.format(Date(stringTime.toLong() * 1000))
+        return df.format(raidStartDate)
     }
 }
 
