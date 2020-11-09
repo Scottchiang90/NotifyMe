@@ -58,8 +58,11 @@ class RequestHandler(val context: Context, private var isNotify: Boolean): Respo
     
     private fun passMessage(message: String){
         if (isNotify) {
-            val notification = notificationUtils.getNotificationBuilder(message).build()
-            notificationUtils.getManager().notify(150, notification)
+            // Only notify if there are raids
+            if (message!=context.getString(R.string.text_view_default)){
+                val notification = notificationUtils.getNotificationBuilder(message).build()
+                notificationUtils.getManager().notify(150, notification)
+            }
         } else{
             textView.text = message
             textView.visibility = View.VISIBLE
