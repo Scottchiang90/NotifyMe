@@ -11,4 +11,5 @@
     <string name="title_activity_location_list">My Gym Watchlist</string>
     <string name="action_settings">Settings</string>
     <string name="location_hint">Enter Gym Name</string>
+    <string name="error_message">Unable to fetch from server.</string>
 </resources>

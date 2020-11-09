@@ -12,12 +12,6 @@ import android.view.View
 import android.widget.ProgressBar
 import android.widget.Switch
 import android.widget.TextView
-import com.android.volley.Request
-import com.android.volley.toolbox.JsonObjectRequest
-import com.android.volley.toolbox.Volley
-import org.json.JSONArray
-import org.json.JSONException
-import java.text.DateFormat
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
@@ -34,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         searchOnLocations(tv)
     }
 
-    fun initNotificationSwitch(){
+    private fun initNotificationSwitch(){
         // get state from shared preference
         val sharedPref = this.getSharedPreferences(getString(R.string.shared_pref), Context.MODE_PRIVATE) ?: return
         val notificationState = sharedPref.getBoolean(getString(R.string.notification_state), false)
@@ -103,73 +97,6 @@ class MainActivity : AppCompatActivity() {
         val progressBar = findViewById<ProgressBar>(R.id.progressBar)
         progressBar.visibility = View.VISIBLE
 
-        // Instantiate the RequestQueue.
-        val queue = Volley.newRequestQueue(this)
-
-        // add time to url
-        val timed_url = getString(R.string.url) + "?time=" + System.currentTimeMillis().toString()
-
-        // Request a string response from the provided URL.
-        val stringRequest = JsonObjectRequest(
-            Request.Method.GET, timed_url, null,
-                { response ->try {
-                    val jsonArray = response.getJSONArray("raids")
-                    textView.text = getMatchingRaids(jsonArray, this)
-                } catch (e: JSONException) {
-                    e.printStackTrace()
-                    textView.text = "Unable to fetch from server."
-                }
-                    textView.visibility = View.VISIBLE
-                    progressBar.visibility = View.GONE
-                },
-                { textView.text = "Unable to fetch from server." })
-
-        // Add the request to the RequestQueue.
-        queue.add(stringRequest)
+        RequestHandler(context = this, textView=textView, progressBar=progressBar).searchOnLocations()
     }
-}
-
-fun getLocationList(context: Context): MutableList<String> {
-    // get shared preference
-    val sharedPref = context.getSharedPreferences(context.getString(R.string.shared_pref), Context.MODE_PRIVATE)
-    //fetch the list
-    val locations = mutableListOf<String>()
-    for (x in 1..20) {
-        val location = sharedPref.getString("location$x", "")
-        if (location?.isNotBlank()!!) {
-            locations.add(location.toLowerCase(Locale.ROOT))
-        }
-    }
-    return locations
-}
-
-fun getMatchingRaids(jsonArray: JSONArray, context: Context): String {
-    // split locations string
-    val locationList = getLocationList(context)
-
-    //generate results
-    val results = mutableListOf<String>()
-    for (i in 0 until jsonArray.length()) {
-        val raid = jsonArray.getJSONObject(i)
-        val gymName = raid.getString("gym_name")
-        if (gymName.toLowerCase(Locale.ROOT) in locationList) {
-            val level = raid.getInt("level")
-            if (level > 4) {
-                //val raid_spawn = timeToString(raid.getString("raid_spawn"))
-                val raid_start = timeToString(raid.getString("raid_start"))
-                //val raid_end = timeToString(raid.getString("raid_end"))
-                val result = "$gymName[$level]: $raid_start"
-                if (result !in results) // remove repeats
-                    results.add(result)
-            }
-        }
-    }
-    return if (results.isEmpty()) context.getString(R.string.text_view_default) else results.joinToString(separator = "\n\n")
-}
-
-fun timeToString(stringTime: String): String {
-    val df = DateFormat.getTimeInstance(DateFormat.SHORT, Locale.ENGLISH)
-    val tz = TimeZone.getTimeZone("Asia/Singapore")
-    df.calendar.timeZone = tz
-    return df.format(Date(stringTime.toLong() * 1000))
 }
