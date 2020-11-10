@@ -126,11 +126,7 @@ class RequestHandler(val context: Context, private var isNotify: Boolean): Respo
         var result = ""
         if (level > 4) {
             val raidStartDate = Date(raidStart.toLong() * 1000)
-            result = if (isNotify && Date().before(raidStartDate)){ // only notify upcoming raids
-                "$gymName[$level]: ${minsToStart(raidStartDate)} mins"
-            } else { // display all raids
-                "$gymName[$level]: ${timeToString(raidStartDate)}"
-            }
+            result = "$gymName[$level]: ${timeToString(raidStartDate)}"
         }
         return result
     }
