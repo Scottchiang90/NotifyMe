@@ -2,6 +2,7 @@
     <string name="app_name">NotifyMe</string>
     <string name="button_sync">Sync</string>
     <string name="button_map">Map</string>
+    <string name="button_save">Save</string>
     <string name="switch_notification">Raid Notifications</string>
     <string name="text_view_default">Sorry, there are no Raids.</string>
     <string name="location_names">location_names</string>
