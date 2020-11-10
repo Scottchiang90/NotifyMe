@@ -8,10 +8,13 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.Switch
 import android.widget.TextView
+import android.widget.Toast
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
@@ -26,6 +29,12 @@ class MainActivity : AppCompatActivity() {
         tv.setTextIsSelectable(true)
         initNotificationSwitch()
         searchOnLocations(tv)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        menuInflater.inflate(R.menu.menu_main, menu)
+        return true
     }
 
     private fun initNotificationSwitch(){
@@ -80,9 +89,15 @@ class MainActivity : AppCompatActivity() {
         alarmMgr?.cancel(alarmIntent)
     }
 
-    fun goToSettings (view: View) {
+    fun goToSettings (mi: MenuItem) {
         val intent = Intent(this, LocationList::class.java)
         startActivity(intent)
+    }
+
+    fun showVersion (mi: MenuItem) {
+        Toast.makeText(this,
+                "${getString(R.string.app_name)} ${getString(R.string.version)} ${getString(R.string.version_number)}",
+                Toast.LENGTH_SHORT).show()
     }
 
     fun openMap (view: View) {

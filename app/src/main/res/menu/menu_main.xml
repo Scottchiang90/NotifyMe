@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/menu_item_watchlist"
+        android:icon="?android:attr/actionModeFindDrawable"
+        android:onClick="goToSettings"
+        android:title="@string/watchlist"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/menu_item_version"
+        android:icon="@drawable/ic_launcher_background"
+        android:onClick="showVersion"
+        android:title="@string/version" />
+</menu>

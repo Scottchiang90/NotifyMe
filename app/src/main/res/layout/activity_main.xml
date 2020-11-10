@@ -6,52 +6,38 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/button_settings"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:backgroundTint="@color/purple_200"
-        android:onClick="goToSettings"
-        android:text="@string/button_settings"
-        app:layout_constraintStart_toEndOf="@+id/switch_notification"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <Switch
         android:id="@+id/switch_notification"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_height="48dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:text="@string/switch_notification"
         android:thumbTint="@color/white"
         android:trackTint="@color/purple_200"
-        app:layout_constraintBottom_toBottomOf="@+id/button_settings"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/button_settings"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/button_search"
         style="@android:style/Widget.DeviceDefault.ImageButton"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="16dp"
+        android:layout_width="72dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:backgroundTint="@color/purple_200"
-        android:contentDescription="@string/button_search"
+        android:contentDescription="@string/button_sync"
         android:onClick="searchOnLocations"
+        android:scaleType="fitCenter"
         android:tint="@color/white"
-        app:layout_constraintBottom_toBottomOf="@+id/button_settings"
+        app:layout_constraintBottom_toBottomOf="@+id/switch_notification"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/button_settings"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_popup_sync" />
+        app:srcCompat="@android:drawable/stat_notify_sync" />
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="371dp"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
@@ -61,23 +47,24 @@
         android:scrollbars="horizontal|vertical"
         android:scrollHorizontally="true"
         android:text="@string/text_view_default"
+        android:textColor="?android:attr/textColorPrimary"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_settings" />
+        app:layout_constraintTop_toBottomOf="@+id/switch_notification" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/button_map"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
         android:layout_marginBottom="32dp"
         android:clickable="true"
         android:contentDescription="@string/button_map"
         android:focusable="true"
         android:onClick="openMap"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/textView"
         app:srcCompat="@android:drawable/ic_dialog_map" />
 
     <ProgressBar
