@@ -7,6 +7,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.appbar.CollapsingToolbarLayout
+import com.google.android.material.chip.Chip
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 
@@ -22,6 +23,7 @@ class LocationList : AppCompatActivity() {
         findViewById<FloatingActionButton>(R.id.fab).setOnClickListener {saveLocation()}
         // set shared preference
         this.sharedPref = this.getSharedPreferences(getString(R.string.shared_pref), Context.MODE_PRIVATE)
+        initChip()
         migrateLocations()
         displayLocations()
     }
@@ -74,6 +76,28 @@ class LocationList : AppCompatActivity() {
         locations.forEachIndexed { index, location ->
             findViewById<EditText>(resources.getIdentifier("location${index+1}", "id", packageName))
                 .setText(location)
+        }
+    }
+
+    private fun initChip() {
+        val statesNames = arrayOf(R.string.level_1_state, R.string.level_3_state, R.string.level_5_state, R.string.level_6_state)
+        val chipNames = arrayOf(R.id.chip_lv_1, R.id.chip_lv_3, R.id.chip_lv_5, R.id.chip_lv_6)
+
+
+        statesNames.forEachIndexed { index, state_name ->
+            // get state from shared preference
+            val state = sharedPref.getBoolean(getString(state_name), false)
+
+            val chip = findViewById<Chip>(chipNames.get(index))
+            chip.isChecked = state
+
+            chip.setOnCheckedChangeListener { view, isChecked ->
+                // save to shared preference
+                with (sharedPref.edit()) {
+                    putBoolean(getString(state_name), isChecked)
+                    apply()
+                }
+            }
         }
     }
 }

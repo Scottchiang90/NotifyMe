@@ -1,6 +1,7 @@
 package com.example.notifyme
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.TextView
@@ -22,6 +23,9 @@ class RequestHandler(val context: Context, private var isNotify: Boolean): Respo
     lateinit var progressBar: ProgressBar
     private val queue: RequestQueue = Volley.newRequestQueue(context) // Instantiate the RequestQueue
     var retryCount = 0
+    var levels = ArrayList<Int>()
+    // get shared preference
+    private lateinit var sharedPref: SharedPreferences
 
     constructor(context: Context):this(context, true) {
         this.notificationUtils = NotificationUtils(context)
@@ -87,29 +91,48 @@ class RequestHandler(val context: Context, private var isNotify: Boolean): Respo
     }
 
     private fun getLocationList(): MutableList<String> {
-        // get shared preference
-        val sharedPref = context.getSharedPreferences(context.getString(R.string.shared_pref), Context.MODE_PRIVATE)
         //fetch the list
         val locations = mutableListOf<String>()
-        for (x in 1..20) {
-            val location = sharedPref.getString("location$x", "")
-            if (location?.isNotBlank()!!) {
-                locations.add(location.toLowerCase(Locale.ROOT))
+        val sharedLocations = sharedPref.getStringSet(context.getString(R.string.shared_pref_locations), mutableSetOf<String>())
+        sharedLocations?.forEach {
+            if (it?.isNotBlank()!!) {
+                locations.add(it.toLowerCase(Locale.ROOT))
             }
         }
         return locations
     }
 
+    private fun getLevelList() {
+        //fetch the list
+        val statesNames = arrayOf(R.string.level_1_state, R.string.level_3_state, R.string.level_5_state, R.string.level_6_state)
+        val levelList = ArrayList<Int>()
+        statesNames.forEachIndexed { index, state_name ->
+            val state = sharedPref.getBoolean(context.getString(state_name), false)
+            if (state) {
+                when (index) {
+                    0 -> levelList.add(1)
+                    1 -> levelList.add(3)
+                    2 -> levelList.add(5)
+                    3 -> levelList.add(6)
+                }
+            }
+        }
+        this.levels = levelList
+    }
+
     private fun getMatchingRaids(jsonArray: JSONArray): String {
-        // split locations string
-        val locationList = getLocationList()
+        // get shared preference
+        sharedPref = context.getSharedPreferences(context.getString(R.string.shared_pref), Context.MODE_PRIVATE)
+
+        // load lists
+        getLevelList()
 
         //generate results
         val results = mutableListOf<String>()
         for (i in 0 until jsonArray.length()) {
             val raid = jsonArray.getJSONObject(i)
             val gymName = raid.getString("gym_name")
-            if (gymName.toLowerCase(Locale.ROOT) in locationList) {
+            if (getLocationList().contains(gymName.toLowerCase(Locale.ROOT))) {
                 val level = raid.getInt("level")
                 //val raid_spawn = timeToString(raid.getString("raid_spawn"))
                 val raidStart = raid.getString("raid_start")
@@ -124,7 +147,7 @@ class RequestHandler(val context: Context, private var isNotify: Boolean): Respo
 
     private fun parseMatchingRaidResult(gymName: String, level: Int, raidStart: String): String{
         var result = ""
-        if (level > 4) {
+        if (level in levels) {
             val raidStartDate = Date(raidStart.toLong() * 1000)
             result = "$gymName[$level]: ${timeToString(raidStartDate)}"
         }

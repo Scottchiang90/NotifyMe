@@ -31,6 +31,43 @@
                 app:layout_collapseMode="pin"
                 app:popupTheme="@style/Theme.NotifyMe.PopupOverlay" />
 
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="15dp"
+                android:paddingTop="5dp"
+                android:paddingEnd="15dp">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_lv_1"
+                    style="@style/ChipFilterTheme"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/level_1" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_lv_3"
+                    style="@style/ChipFilterTheme"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/level_3" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_lv_5"
+                    style="@style/ChipFilterTheme"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/level_5" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_lv_6"
+                    style="@style/ChipFilterTheme"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/level_6" />
+            </com.google.android.material.chip.ChipGroup>
+
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 

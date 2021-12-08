@@ -11,10 +11,18 @@
     <string name="location_hint">Enter Gym Name</string>
     <string name="version">version</string>
     <string name="watchlist">Watchlist</string>
+    <string name="level_1">Tier 1</string>
+    <string name="level_3">Tier 3</string>
+    <string name="level_5">Tier 5</string>
+    <string name="level_6">Mega</string>
     <!--Shared Preference-->
     <string name="shared_pref">Settings</string>
     <string name="shared_pref_locations">locations</string>
     <string name="notification_state">notification_state</string>
+    <string name="level_1_state">level_1_state</string>
+    <string name="level_3_state">level_3_state</string>
+    <string name="level_5_state">level_5_state</string>
+    <string name="level_6_state">level_6_state</string>
     <!--Dynamic messages-->
     <string name="text_view_default">Sorry, there are no Raids.</string>
     <string name="error_message">Unable to fetch from server.</string>
